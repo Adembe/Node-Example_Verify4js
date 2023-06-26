@@ -24,12 +24,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = path.resolve(
 app.post('/verify', upload.single('file'), async (req, res) => {
   const fileData = Int8Array.from(req.file.buffer); // Convert Buffer to Int8Array
 
-  console.log("filedata", fileData);
-
   verify(fileData)
     .then((VerifyResultInterface) => {
       console.log("result: ", VerifyResultInterface);
-      res.json({ result: VerifyResultInterface });
+      res.status(200).json({ result: VerifyResultInterface });
     })
     .catch((error) => {
       console.error(error);
