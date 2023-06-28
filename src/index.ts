@@ -3,15 +3,12 @@ import { verify } from 'verify4js';
 import multer from 'multer';
 import pdfjs from 'pdfjs-dist';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = 'D:\\Me\\dadlaga\\Node-Example_Verify4js';
+
+
 const app = express();
 const upload = multer();
-
-
 
 pdfjs.GlobalWorkerOptions.workerSrc = path.resolve(
     __dirname,
@@ -27,7 +24,7 @@ app.post('/verify', upload.single('file'), async (req, res) => {
   verify(fileData)
     .then((VerifyResultInterface) => {
       console.log("result: ", VerifyResultInterface);
-      res.status(200).json({ result: VerifyResultInterface });
+      res.status(200).json({ success: true,result: VerifyResultInterface });
     })
     .catch((error) => {
       console.error(error);
